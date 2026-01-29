@@ -1,0 +1,318 @@
+.container {
+    padding: 6rem 0;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+}
+
+.wizard {
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    position: relative;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.step {
+    color: var(--text-secondary);
+    font-weight: 600;
+    z-index: 2;
+    background: var(--bg-card);
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stepNum {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.step.active {
+    color: var(--accent-blue);
+}
+
+.step.active .stepNum {
+    background: var(--accent-blue);
+    color: #000;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.line {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    flex: 1;
+    position: absolute;
+    width: 100%;
+    top: 15px;
+    z-index: 1;
+}
+
+/* Step 1: Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-primary);
+}
+
+.card:hover {
+    background: rgba(0, 240, 255, 0.05);
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+}
+
+.icon {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-purple);
+}
+
+/* Step 2: Issue Multi-Select */
+.issueList {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.stepTitle {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.smallNote {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.issuesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid transparent;
+    padding: 1rem;
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-align: left;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.selectedOption {
+    background: rgba(0, 240, 255, 0.1);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--accent-blue);
+}
+
+.selectedOption .checkbox {
+    border-color: var(--accent-blue);
+    background: rgba(0, 240, 255, 0.2);
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 2rem;
+}
+
+.backBtn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.backBtn:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+/* Step 3: Combined Results */
+.resultCard {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+    text-align: left;
+}
+
+.analysis {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding-right: 2rem;
+}
+
+.issueHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.5rem;
+}
+
+.issueName {
+    font-size: 1.1rem;
+    color: var(--accent-blue);
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.issuePrice {
+    font-weight: 700;
+    color: var(--success);
+    font-size: 0.9rem;
+}
+
+.causeRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+}
+
+.barContainer {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+    background: var(--gradient-main);
+    border-radius: 4px;
+}
+
+.perc {
+    font-weight: 700;
+    width: 40px;
+    text-align: right;
+    font-size: 0.8rem;
+}
+
+.estimate {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.estimate h4 {
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.priceTag {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--success);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .resultCard {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .analysis {
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 2rem;
+    }
+}
