@@ -1,27 +1,43 @@
-import { products } from '../../data/products';
+"use client";
+import { use, useMemo } from 'react';
 import ImageCarousel from '../../components/ImageCarousel';
 import styles from './page.module.css';
 import Header from '../../components/Header';
 import Contact from '../../components/Contact';
+import { useLanguage } from '../../context/LanguageContext';
+import { PRODUCTS_LOCALIZED } from '../../i18n';
+import Link from 'next/link';
 
-export function generateStaticParams() {
-    return products.map((product) => ({
-        id: product.id,
-    }));
-}
+export default function ProductPage({ params }) {
+    const { id } = use(params);
+    const { t, language } = useLanguage();
 
-export default async function ProductPage({ params }) {
-    const { id } = await params;
-    const product = products.find((p) => p.id === id);
+    const product = useMemo(() => {
+        const localizedList = PRODUCTS_LOCALIZED[language] || PRODUCTS_LOCALIZED['fr'];
+        return localizedList.find((p) => p.id === id);
+    }, [id, language]);
 
-    if (!product) return <div>Product not found</div>;
+    if (!product) return (
+        <>
+            <Header />
+            <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
+                <h1>Product not found / Produit non trouvé</h1>
+                <Link href="/#products" className="btn-primary" style={{ marginTop: '20px', display: 'inline-block' }}>
+                    {t('nav.products')}
+                </Link>
+            </div>
+            <Contact />
+        </>
+    );
 
     return (
         <>
             <Header />
             <main className={styles.main}>
                 <div className="container">
-                    <a href="/#products" className={styles.backLink}>← Back to Products</a>
+                    <Link href="/#products" className={styles.backLink}>
+                        ← {language === 'fr' ? 'Retour aux produits' : 'Back to Products'}
+                    </Link>
 
                     <div className={styles.grid}>
                         <div className={styles.gallery}>
@@ -31,7 +47,7 @@ export default async function ProductPage({ params }) {
                         <div className={styles.info}>
                             {product.tag && <span className={styles.tag}>{product.tag}</span>}
                             <h1 className={styles.title}>{product.name}</h1>
-                            <div className={styles.price}>{product.price} DA</div>
+                            <div className={styles.price}>{product.price.toLocaleString()} DA</div>
 
                             <p className={styles.desc}>{product.description}</p>
 
@@ -42,11 +58,6 @@ export default async function ProductPage({ params }) {
                                     ))}
                                 </ul>
                             )}
-
-                            {/* <div className={styles.actions}>
-                                <button className="btn-primary">Buy Now</button>
-                                <button className="btn-secondary">Check Availability</button>
-                            </div> */}
                         </div>
                     </div>
                 </div>
