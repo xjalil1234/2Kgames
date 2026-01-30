@@ -16,16 +16,6 @@ export default function Header() {
                     <span className={styles.logoNeon}>2K</span>games
                 </div>
 
-                <button
-                    className={styles.hamburger}
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    aria-label="Toggle menu"
-                >
-                    <span className={`${styles.bar} ${isMenuOpen ? styles.open : ''}`}></span>
-                    <span className={`${styles.bar} ${isMenuOpen ? styles.open : ''}`}></span>
-                    <span className={`${styles.bar} ${isMenuOpen ? styles.open : ''}`}></span>
-                </button>
-
                 <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ''}`}>
                     <Link href="/#products" onClick={() => setIsMenuOpen(false)}>{t('nav.products')}</Link>
                     <Link href="/diagnostic" onClick={() => setIsMenuOpen(false)}>{t('nav.diagnostic')}</Link>
@@ -37,12 +27,23 @@ export default function Header() {
                         <LanguageSwitcher />
                     </div>
                 </nav>
+
                 <div className={styles.desktopActions}>
                     <div className="desktop-only">
                         <LanguageSwitcher />
                     </div>
                     <Link href="/diagnostic" className="btn-primary desktop-only">{t('nav.repair')}</Link>
                 </div>
+
+                <button
+                    className={styles.hamburger}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    <span className={`${styles.bar} ${isMenuOpen ? styles.open : ''}`}></span>
+                    <span className={`${styles.bar} ${isMenuOpen ? styles.open : ''}`}></span>
+                    <span className={`${styles.bar} ${isMenuOpen ? styles.open : ''}`}></span>
+                </button>
             </div>
         </header>
     );

@@ -106,6 +106,10 @@
     .bar.open:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
     }
+
+    .desktopActions {
+        display: none;
+    }
 }
 
 /* Visibility Utilities */
