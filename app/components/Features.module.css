@@ -51,3 +51,27 @@
     color: var(--text-secondary);
     line-height: 1.6;
 }
+
+.brandingWrapper {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    padding-top: 2rem;
+}
+
+.subtleBranding {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.subtleBranding:hover {
+    opacity: 0.8;
+    color: #fff;
+    letter-spacing: 2px;
+}

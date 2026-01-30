@@ -1,36 +1,39 @@
+"use client";
 import styles from './Contact.module.css';
 import ScrollReveal from './ScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Contact() {
+    const { t } = useLanguage();
     return (
         <section id="contact" className={styles.section}>
             <div className="container">
                 <div className={styles.grid}>
                     <ScrollReveal animation="left">
                         <div className={styles.info}>
-                            <h2 className={styles.title}>Get in <span className="text-gradient">Touch</span></h2>
-                            <p className={styles.subtitle}>Have questions? We're here to help you get back in the game.</p>
+                            <h2 className={styles.title}>{t('contact.title')} <span className="text-gradient">{t('contact.subtitle')}</span></h2>
+                            <p className={styles.subtitle}>{t('contact.desc')}</p>
 
                             <div className={styles.contactDetails}>
                                 <div className={styles.item}>
                                     <span className={styles.icon}>📍</span>
                                     <div>
-                                        <strong>Location</strong>
+                                        <strong>{t('contact.location')}</strong>
                                         <p>123 Gaming Street, Algiers, DZ</p>
                                     </div>
                                 </div>
                                 <div className={styles.item}>
                                     <span className={styles.icon}>📞</span>
                                     <div>
-                                        <strong>Phone</strong>
-                                        <p>+213 555 123 456</p>
+                                        <strong>{t('contact.phone')}</strong>
+                                        <p>+213 0555555555</p>
                                     </div>
                                 </div>
                                 <div className={styles.item}>
                                     <span className={styles.icon}>✉️</span>
                                     <div>
-                                        <strong>Email</strong>
-                                        <p>support@neoncore.com</p>
+                                        <strong>{t('contact.email')}</strong>
+                                        <p>xrion.agency@gmail.com</p>
                                     </div>
                                 </div>
                             </div>
@@ -40,20 +43,29 @@ export default function Contact() {
                     <ScrollReveal animation="right">
                         <form className={styles.form}>
                             <div className={styles.formGroup}>
-                                <input type="text" placeholder="Your Name" />
+                                <input type="text" placeholder={t('contact.form.name')} />
                             </div>
                             <div className={styles.formGroup}>
-                                <input type="email" placeholder="Your Email" />
+                                <input type="email" placeholder={t('contact.form.email')} />
                             </div>
                             <div className={styles.formGroup}>
-                                <textarea placeholder="How can we help?" rows="4"></textarea>
+                                <textarea placeholder={t('contact.form.message')} rows="4"></textarea>
                             </div>
-                            <button type="submit" className="btn-primary" style={{ width: '100%' }}>Send Message</button>
+                            <button type="submit" className="btn-primary" style={{ width: '100%' }}>{t('contact.form.send')}</button>
                         </form>
                     </ScrollReveal>
                 </div>
                 <div className={styles.copyright}>
-                    &copy; {new Date().getFullYear()} 2Kgames. All rights reserved.
+                    <p>&copy; {new Date().getFullYear()} 2Kgames. {t('copyright')}</p>
+                    <a
+                        href="https://www.instagram.com/xrion.agency/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.branding}
+                    >
+                        <img src="/images/LOGO xrion.png" alt="Xrion Agency" className={styles.brandingLogo} />
+                        <span>{t('branding.builtBy')}</span>
+                    </a>
                 </div>
             </div>
         </section>

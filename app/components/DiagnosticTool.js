@@ -1,6 +1,8 @@
 "use client";
 import { useState } from 'react';
 import styles from './DiagnosticTool.module.css';
+import { useLanguage } from '../context/LanguageContext';
+import { ISSUES_LOCALIZED } from '../i18n';
 
 const CONSOLES = [
     { id: 'ps4', name: 'PlayStation 4', img: 'PS4' },
@@ -32,6 +34,8 @@ const ISSUES = {
 };
 
 export default function DiagnosticTool() {
+    const { t, language } = useLanguage();
+    const ISSUES = ISSUES_LOCALIZED[language];
     const [step, setStep] = useState(1);
     const [selectedConsole, setSelectedConsole] = useState(null);
     const [selectedIssues, setSelectedIssues] = useState([]); // Array of issue objects
@@ -68,22 +72,22 @@ export default function DiagnosticTool() {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Console <span className="text-gradient">Diagnostic</span> Center</h2>
-                <p className={styles.subtitle}>Identify the problem and get an instant repair estimate.</p>
+                <h2 className={styles.title}>{t('diagnostic.title')} <span className="text-gradient">{t('diagnostic.subtitle')}</span> {t('diagnostic.center')}</h2>
+                <p className={styles.subtitle}>{t('diagnostic.desc')}</p>
             </div>
 
             <div className={styles.wizard}>
                 <div className={styles.progress}>
                     <div className={`${styles.step} ${step >= 1 ? styles.active : ''}`}>
-                        <span className={styles.stepNum}>1</span> Console
+                        <span className={styles.stepNum}>1</span> {t('diagnostic.steps.console')}
                     </div>
                     <div className={styles.line}></div>
                     <div className={`${styles.step} ${step >= 2 ? styles.active : ''}`}>
-                        <span className={styles.stepNum}>2</span> Issue
+                        <span className={styles.stepNum}>2</span> {t('diagnostic.steps.issue')}
                     </div>
                     <div className={styles.line}></div>
                     <div className={`${styles.step} ${step >= 3 ? styles.active : ''}`}>
-                        <span className={styles.stepNum}>3</span> Estimate
+                        <span className={styles.stepNum}>3</span> {t('diagnostic.steps.estimate')}
                     </div>
                 </div>
 
@@ -101,7 +105,7 @@ export default function DiagnosticTool() {
 
                     {step === 2 && (
                         <div className={styles.issueList}>
-                            <h3 className={styles.stepTitle}>What seems to be the problem? <br /><span className={styles.smallNote}>(Select all that apply)</span></h3>
+                            <h3 className={styles.stepTitle}>{t('diagnostic.issuePrompt')} <br /><span className={styles.smallNote}>{t('diagnostic.smallNote')}</span></h3>
 
                             <div className={styles.issuesGrid}>
                                 {currentIssuesList.length > 0 ? currentIssuesList.map((issue) => {
@@ -116,18 +120,18 @@ export default function DiagnosticTool() {
                                             {issue.name}
                                         </button>
                                     );
-                                }) : <p>No specific issues listed. Please contact us.</p>}
+                                }) : <p>{t('diagnostic.noIssues')}</p>}
                             </div>
 
                             <div className={styles.actions}>
-                                <button className={styles.backBtn} onClick={() => setStep(1)}>← Back</button>
+                                <button className={styles.backBtn} onClick={() => setStep(1)}>{t('diagnostic.back')}</button>
                                 <button
                                     className="btn-primary"
                                     disabled={selectedIssues.length === 0}
                                     onClick={handleCalculate}
                                     style={{ opacity: selectedIssues.length === 0 ? 0.5 : 1 }}
                                 >
-                                    Calculate Estimate
+                                    {t('diagnostic.calculate')}
                                 </button>
                             </div>
                         </div>
@@ -135,7 +139,7 @@ export default function DiagnosticTool() {
 
                     {step === 3 && selectedIssues.length > 0 && (
                         <div className={styles.result}>
-                            <h3 className={styles.stepTitle}>Diagnostic Analysis</h3>
+                            <h3 className={styles.stepTitle}>{t('diagnostic.analysis')}</h3>
 
                             <div className={styles.resultCard}>
                                 <div className={styles.analysis}>
@@ -162,17 +166,17 @@ export default function DiagnosticTool() {
                                 </div>
 
                                 <div className={styles.estimate}>
-                                    <h4>Total Estimated Cost</h4>
+                                    <h4>{t('diagnostic.total')}</h4>
                                     {/* Simple logic: Sum of minimum costs of all selected issues */}
                                     <div className={styles.priceTag}>
                                         {selectedIssues.reduce((acc, issue) => acc + Math.min(...issue.causes.map(c => c.cost)), 0)} DA
                                     </div>
-                                    <p className={styles.disclaimer}>*Estimates are preliminary. Valid after inspection.</p>
-                                    <a href="#contact" className="btn-primary">Book Repair Now</a>
+                                    <p className={styles.disclaimer}>{t('diagnostic.disclaimer')}</p>
+                                    <a href="#contact" className="btn-primary">{t('diagnostic.book')}</a>
                                 </div>
                             </div>
 
-                            <button className={styles.backBtn} onClick={reset}>Start Over</button>
+                            <button className={styles.backBtn} onClick={reset}>{t('diagnostic.startOver')}</button>
                         </div>
                     )}
                 </div>

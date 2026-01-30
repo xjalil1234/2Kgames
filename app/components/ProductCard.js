@@ -1,8 +1,11 @@
+"use client";
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './ProductCard.module.css';
+import { useLanguage } from '../context/LanguageContext';
 
-export default function ProductCard({ id, name, price, image, tag }) {
+export default function ProductCard({ id, name, price, tag, image }) {
+    const { t } = useLanguage();
     return (
         <div className={styles.card}>
             <div className={styles.imageContainer}>
@@ -17,8 +20,12 @@ export default function ProductCard({ id, name, price, image, tag }) {
             </div>
             <div className={styles.content}>
                 <h3 className={styles.name}>{name}</h3>
-                <p className={styles.price}>{price} DA</p>
-                <Link href={`/products/${id}`} className={styles.button}>View Details</Link>
+                <div className={styles.details}>
+                    <span className={styles.price}>{price.toLocaleString()} DA</span>
+                    <Link href={`/products/${id}`} className={styles.btn}>
+                        {t('products.viewDetails')}
+                    </Link>
+                </div>
             </div>
         </div>
     );

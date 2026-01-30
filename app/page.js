@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from "./page.module.css";
 import Header from "./components/Header";
@@ -5,9 +7,24 @@ import ProductCard from "./components/ProductCard";
 import Features from "./components/Features";
 import Contact from "./components/Contact";
 import ScrollReveal from "./components/ScrollReveal";
-import { products } from "./data/products";
+import { useLanguage } from "./context/LanguageContext";
+import { PRODUCTS_LOCALIZED } from "./i18n";
 
 export default function Home() {
+  const { t, language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Use a fallback to avoid undefined errors during early render or transition
+  const activeLanguage = language || 'fr';
+  const products = PRODUCTS_LOCALIZED[activeLanguage] || PRODUCTS_LOCALIZED['fr'];
+
+  // Debugging log to see what's happening in the terminal
+  console.log('Rendering Home:', { activeLanguage, productCount: products.length });
+
   return (
     <>
       <Header />
@@ -16,16 +33,15 @@ export default function Home() {
           <div className="container">
             <div className={styles.heroContent}>
               <h1 className={styles.title}>
-                Next Level <br />
-                <span className="text-gradient">Gaming & Repairs</span>
+                {t('hero.title')} <br />
+                <span className="text-gradient">{t('hero.subtitle')}</span>
               </h1>
               <p className={styles.subtitle}>
-                Your destination for the latest consoles and expert diagnostics.
-                We bring your gear back to life.
+                {t('hero.desc')}
               </p>
               <div className={styles.actions}>
-                <Link href="/#products" className="btn-primary">View Products</Link>
-                <Link href="/diagnostic" className="btn-secondary">Diagnose Console</Link>
+                <Link href="/#products" className="btn-primary">{t('hero.viewProducts')}</Link>
+                <Link href="/diagnostic" className="btn-secondary">{t('hero.diagnose')}</Link>
               </div>
             </div>
           </div>
@@ -37,20 +53,20 @@ export default function Home() {
           <div className="container">
             <ScrollReveal>
               <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Featured <span className="text-gradient">Gear</span></h2>
-                <p className={styles.sectionSubtitle}>Top tier equipment for the ultimate gaming experience.</p>
+                <h2 className={styles.sectionTitle}>{t('products.title')} <span className="text-gradient">{t('products.subtitle')}</span></h2>
+                <p className={styles.sectionSubtitle}>{t('products.desc')}</p>
               </div>
             </ScrollReveal>
 
             <div className={styles.grid}>
-              {products.map((product, index) => (
-                <ScrollReveal key={product.id} delay={index * 100}>
+              {products && products.map((product, index) => (
+                <ScrollReveal key={product.id || index} delay={index * 100}>
                   <ProductCard
                     id={product.id}
                     name={product.name}
                     price={product.price}
                     tag={product.tag}
-                    image={product.images[0]}
+                    image={product.images && product.images.length > 0 ? product.images[0] : '/images/placeholder.jpg'}
                   />
                 </ScrollReveal>
               ))}
