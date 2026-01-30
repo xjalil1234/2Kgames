@@ -18,7 +18,7 @@ export default function ProductCard({ id, name, price, image, tag }) {
             <div className={styles.content}>
                 <h3 className={styles.name}>{name}</h3>
                 <p className={styles.price}>{price} DA</p>
-                <Link href={`./products/${id}`} className={styles.button}>View Details</Link>
+                <Link href={`/products/${id}`} className={styles.button}>View Details</Link>
             </div>
         </div>
     );

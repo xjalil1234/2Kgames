@@ -58,7 +58,7 @@ export const products = [
         features: ['7.1 Surround', 'Noise Cancelling Mic', 'Memory Foam Earcups'],
         images: [
             '/images/headphone-1.jpg',
-            '/images/headphpne-2.jpg' // Typo in filename matched from directory listing
+            '/images/headphone-2.jpg' // Typo in filename matched from directory listing
         ]
     }
 ];
